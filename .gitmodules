@@ -1,0 +1,12 @@
+[submodule "third-party/asio"]
+    path = third-party/asio
+    url = https://github.com/chriskohlhoff/asio.git
+    tag = asio-1-30-0
+[submodule "third-party/fmt"]
+    path = third-party/fmt
+    url = https://github.com/fmtlib/fmt.git
+    tag = 6.0.0
+[submodule "third-party/catch2"]
+    path = third-party/catch2
+    url = https://github.com/catchorg/Catch2.git
+    tag = v3.5.0
