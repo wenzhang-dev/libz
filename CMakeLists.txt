@@ -76,3 +76,7 @@ add_library(base STATIC ${BASE_SRC})
 # event lib
 include(${CMAKE_SOURCE_DIR}/event/sources.cmake)
 add_library(event STATIC ${EVENT_SRC})
+
+# examples
+add_executable(echo_tcp_server examples/echo_tcp_server.cc)
+target_link_libraries(echo_tcp_server event base fmt pthread)
