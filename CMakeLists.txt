@@ -17,7 +17,7 @@ endif()
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -fPIC -fPIE -Wall -Werror -rdynamic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -fPIC -fPIE -Wall -rdynamic")
 
 include_directories(
   ${CMAKE_CURRENT_LIST_DIR}
@@ -78,5 +78,35 @@ include(${CMAKE_SOURCE_DIR}/event/sources.cmake)
 add_library(event STATIC ${EVENT_SRC})
 
 # examples
-add_executable(echo_tcp_server examples/echo_tcp_server.cc)
-target_link_libraries(echo_tcp_server event base fmt pthread)
+option(BUILD_EXAMPLES "build examples" OFF)
+if (BUILD_EXAMPLES)
+  add_executable(echo_tcp_server examples/echo_tcp_server.cc)
+  target_link_libraries(echo_tcp_server event base fmt pthread)
+
+  #  set(CMAKE_PREFIX_PATH "/the/path/of/grpc")
+  find_package(Protobuf REQUIRED CONFIG)
+  find_package(gRPC REQUIRED)
+  message(STATUS "using grpc ${gRPC_VERSION}")
+
+  add_executable(echo_grpc_server
+    examples/echo_grpc_server.cc
+    examples/helloworld.grpc.pb.cc
+    examples/helloworld.grpc.pb.h
+    examples/helloworld.pb.cc
+    examples/helloworld.pb.h
+  )
+
+  # don't use asan for grpc
+  # turn on asan, the native grpc examples won't run.
+  target_compile_options(echo_grpc_server PUBLIC -fno-sanitize=all)
+
+  target_link_libraries(echo_grpc_server
+    gRPC::grpc++_reflection
+    gRPC::grpc++
+    protobuf::libprotobuf
+    event
+    base
+    fmt
+    pthread
+  )
+endif()
