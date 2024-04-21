@@ -109,4 +109,24 @@ if (BUILD_EXAMPLES)
     fmt
     pthread
   )
+
+  add_executable(echo_grpc_server2
+    examples/echo_grpc_server2.cc
+    examples/helloworld2.grpc.pb.cc
+    examples/helloworld2.grpc.pb.h
+    examples/helloworld2.pb.cc
+    examples/helloworld2.pb.h
+  )
+
+  target_compile_options(echo_grpc_server2 PUBLIC -fno-sanitize=all)
+  target_link_libraries(echo_grpc_server2
+    gRPC::grpc++_reflection
+    gRPC::grpc++
+    protobuf::libprotobuf
+    event
+    base
+    fmt
+    pthread
+  )
+
 endif()
