@@ -39,6 +39,10 @@ class Error {
   static Error MkSysError(int sys_errno);
   static Error MkBoostError(int code, std::string&& msg);
   static Error MkBoostError(int code, const std::string& msg);
+  static Error MkGeneralError(int code, std::string&& msg,
+                              std::string_view category);
+  static Error MkGeneralError(int code, const std::string& msg,
+                              std::string_view category);
 
   bool IsSysError() const;
   bool IsBoostError() const;
