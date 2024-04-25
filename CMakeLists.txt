@@ -79,9 +79,27 @@ add_library(event STATIC ${EVENT_SRC})
 
 # examples
 option(BUILD_EXAMPLES "build examples" OFF)
+option(ENABLE_IOURING "enable iouring" OFF)
 if (BUILD_EXAMPLES)
   add_executable(echo_tcp_server examples/echo_tcp_server.cc)
   target_link_libraries(echo_tcp_server event base fmt pthread)
+
+  if (ENABLE_IOURING)
+    add_executable(disk_io
+      examples/disk_io.cc
+    )
+
+    target_link_directories(disk_io PUBLIC "${IOURING_PATH}/lib")
+    target_include_directories(disk_io PUBLIC "${IOURING_PATH}/include")
+
+    target_link_libraries(disk_io
+      event
+      base
+      fmt
+      uring
+      pthread
+    )
+  endif()
 
   #  set(CMAKE_PREFIX_PATH "/the/path/of/grpc")
   find_package(Protobuf REQUIRED CONFIG)

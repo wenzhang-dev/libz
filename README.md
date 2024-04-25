@@ -19,3 +19,10 @@ cd build
 cmake -DCMAKE_PREFIX_PATH=/the/path/of/grpc -DBUILD_EXAMPLES=ON ..
 make -j8
 ```
+
+```
+cd build
+cmake -DCMAKE_PREFIX_PATH=/the/path/of/grpc -DBUILD_EXAMPLES=ON \
+  -DENABLE_IOURING=ON -DIOURING_PATH=/the/path/of/liburing/ ..
+make -j8
+```
