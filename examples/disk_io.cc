@@ -120,7 +120,7 @@ struct ReadIOContext : public IOContext<AlignedString> {
   }
 
   ::iovec* PrepareBuffer(std::size_t length) {
-    Data()->resize(legnth);
+    Data()->resize(length);
 
     iov.iov_base = Data()->data();
     iov.iov_len = length;
