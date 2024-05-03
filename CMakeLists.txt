@@ -87,6 +87,9 @@ if (BUILD_EXAMPLES)
   add_executable(echo_tcp_server2 examples/echo_tcp_server2.cc)
   target_link_libraries(echo_tcp_server2 event base fmt pthread)
 
+  add_executable(dns_resolver examples/dns_resolver.cc)
+  target_link_libraries(dns_resolver event base fmt pthread)
+
   if (ENABLE_IOURING)
     add_executable(disk_io
       examples/disk_io.cc
@@ -148,6 +151,7 @@ if (BUILD_EXAMPLES)
     base
     fmt
     pthread
+#   dw
   )
 
   add_executable(echo_grpc_client
