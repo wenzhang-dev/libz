@@ -10,3 +10,6 @@
     path = third-party/catch2
     url = https://github.com/catchorg/Catch2.git
     tag = v3.5.0
+[submodule "third-party/ada"]
+	path = third-party/ada
+	url = https://github.com/ada-url/ada.git

@@ -29,6 +29,12 @@ include_directories(
 # fmt lib
 add_subdirectory("third-party/fmt")
 
+# ada lib
+set(ADA_BENCHMARKS OFF)
+set(ADA_TESTING OFF)
+set(ADA_TOOLS OFF)
+add_subdirectory("third-party/ada")
+
 set(CMAKE_BUILD_TYPE None)
 option(BUILD_TESTS "build unit tests" ON)
 option(RELEASE_BUILD "build type: release or not" OFF)
@@ -89,6 +95,9 @@ if (BUILD_EXAMPLES)
 
   add_executable(dns_resolver examples/dns_resolver.cc)
   target_link_libraries(dns_resolver event base fmt pthread)
+
+  add_executable(http_client examples/http_client.cc)
+  target_link_libraries(http_client event base ada fmt pthread)
 
   if (ENABLE_IOURING)
     add_executable(disk_io
